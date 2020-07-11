@@ -19,12 +19,32 @@ package com.google.samples.apps.sunflower
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.window.DeviceState
+import androidx.window.DeviceState.POSTURE_UNKNOWN
+import androidx.window.WindowManager
 import com.google.samples.apps.sunflower.databinding.ActivityGardenBinding
+import com.google.samples.apps.sunflower.databinding.ActivityGardenFoldableBinding
+import com.google.samples.apps.sunflower.databinding.ActivityGardenFoldableBindingImpl
 
 class GardenActivity : AppCompatActivity() {
 
+    private lateinit var windowManager: WindowManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView<ActivityGardenBinding>(this, R.layout.activity_garden)
+
+        windowManager = WindowManager(this, null)
+        deviceState = windowManager.deviceState
+        if (windowManager.deviceState.posture == POSTURE_UNKNOWN) {
+            setContentView<ActivityGardenBinding>(this, R.layout.activity_garden)
+        } else {
+            setContentView<ActivityGardenFoldableBinding>(this, R.layout.activity_garden_foldable)
+        }
+    }
+
+    companion object {
+        //access this globally
+        var deviceState: DeviceState? = null
+
     }
 }

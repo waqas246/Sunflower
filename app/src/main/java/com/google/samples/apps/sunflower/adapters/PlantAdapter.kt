@@ -23,7 +23,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.samples.apps.sunflower.HomeViewPagerFragmentDirections
+//import com.google.samples.apps.sunflower.HomeViewPagerFragmentDirections
 import com.google.samples.apps.sunflower.PlantListFragment
 import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.databinding.ListItemPlantBinding
@@ -49,21 +49,21 @@ class PlantAdapter : ListAdapter<Plant, RecyclerView.ViewHolder>(PlantDiffCallba
         init {
             binding.setClickListener {
                 binding.plant?.let { plant ->
-                    navigateToPlant(plant, it)
+                 //   navigateToPlant(plant, it)
                 }
             }
         }
 
-        private fun navigateToPlant(
-            plant: Plant,
-            view: View
-        ) {
-            val direction =
-                HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(
-                    plant.plantId
-                )
-            view.findNavController().navigate(direction)
-        }
+//        private fun navigateToPlant(
+//            plant: Plant,
+//            view: View
+//        ) {
+//            val direction =
+//                HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(
+//                    plant.plantId
+//                )
+//            view.findNavController().navigate(direction)
+//        }
 
         fun bind(item: Plant) {
             binding.apply {

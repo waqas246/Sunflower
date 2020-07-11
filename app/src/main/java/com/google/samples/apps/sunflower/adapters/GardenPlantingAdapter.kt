@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.samples.apps.sunflower.R
-import com.google.samples.apps.sunflower.HomeViewPagerFragmentDirections
+//import com.google.samples.apps.sunflower.HomeViewPagerFragmentDirections
 import com.google.samples.apps.sunflower.data.PlantAndGardenPlantings
 import com.google.samples.apps.sunflower.databinding.ListItemGardenPlantingBinding
 import com.google.samples.apps.sunflower.viewmodels.PlantAndGardenPlantingsViewModel
@@ -54,16 +54,16 @@ class GardenPlantingAdapter :
         init {
             binding.setClickListener { view ->
                 binding.viewModel?.plantId?.let { plantId ->
-                    navigateToPlant(plantId, view)
+                   // navigateToPlant(plantId, view)
                 }
             }
         }
 
-        private fun navigateToPlant(plantId: String, view: View) {
-            val direction = HomeViewPagerFragmentDirections
-                .actionViewPagerFragmentToPlantDetailFragment(plantId)
-            view.findNavController().navigate(direction)
-        }
+//        private fun navigateToPlant(plantId: String, view: View) {
+//            val direction = HomeViewPagerFragmentDirections
+//                .actionViewPagerFragmentToPlantDetailFragment(plantId)
+//            view.findNavController().navigate(direction)
+//        }
 
         fun bind(plantings: PlantAndGardenPlantings) {
             with(binding) {
