@@ -23,10 +23,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.window.DeviceState.POSTURE_OPENED
+import com.google.samples.apps.sunflower.GardenActivity
 //import com.google.samples.apps.sunflower.HomeViewPagerFragmentDirections
 import com.google.samples.apps.sunflower.PlantListFragment
 import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.databinding.ListItemPlantBinding
+import com.google.samples.apps.sunflower.databinding.ListItemPlantPortaritBinding
 
 /**
  * Adapter for the [RecyclerView] in [PlantListFragment].
@@ -34,13 +37,22 @@ import com.google.samples.apps.sunflower.databinding.ListItemPlantBinding
 class PlantAdapter : ListAdapter<Plant, RecyclerView.ViewHolder>(PlantDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return PlantViewHolder(ListItemPlantBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false))
+        if (GardenActivity.deviceState?.posture == POSTURE_OPENED) {
+            return PlantPortraitViewHolder(ListItemPlantPortaritBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false))
+        } else {
+            return PlantViewHolder(ListItemPlantBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false))
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val plant = getItem(position)
-        (holder as PlantViewHolder).bind(plant)
+        if (GardenActivity.deviceState?.posture == POSTURE_OPENED) {
+            (holder as PlantPortraitViewHolder).bind(plant)
+        } else {
+            (holder as PlantViewHolder).bind(plant)
+        }
     }
 
     class PlantViewHolder(
@@ -50,6 +62,36 @@ class PlantAdapter : ListAdapter<Plant, RecyclerView.ViewHolder>(PlantDiffCallba
             binding.setClickListener {
                 binding.plant?.let { plant ->
                  //   navigateToPlant(plant, it)
+                }
+            }
+        }
+
+//        private fun navigateToPlant(
+//            plant: Plant,
+//            view: View
+//        ) {
+//            val direction =
+//                HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(
+//                    plant.plantId
+//                )
+//            view.findNavController().navigate(direction)
+//        }
+
+        fun bind(item: Plant) {
+            binding.apply {
+                plant = item
+                executePendingBindings()
+            }
+        }
+    }
+
+    class PlantPortraitViewHolder(
+            private val binding: ListItemPlantPortaritBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.setClickListener {
+                binding.plant?.let { plant ->
+                    //   navigateToPlant(plant, it)
                 }
             }
         }

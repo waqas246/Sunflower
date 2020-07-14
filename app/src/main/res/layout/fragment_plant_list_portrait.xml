@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 Google LLC
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,23 +18,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="com.google.samples.apps.sunflower.data.Plant"/>
+        <variable
+            name="viewModel"
+            type="com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel" />
+        <variable
+            name="callback"
+            type="com.google.samples.apps.sunflower.PlantDetailFragment.Callback" />
+    </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/plant_list"
-            android:orientation="horizontal"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingEnd="@dimen/card_side_margin"
-            android:paddingStart="@dimen/card_side_margin"
-            android:paddingTop="@dimen/header_margin"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:context="com.google.samples.apps.sunflower.GardenActivity"
-            tools:listitem="@layout/list_item_plant_portarit"/>
+            android:layout_height="match_parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/plant_list"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/card_side_margin"
+                android:paddingTop="@dimen/header_margin"
+                android:paddingEnd="@dimen/card_side_margin"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:context="com.google.samples.apps.sunflower.GardenActivity"
+                tools:listitem="@layout/list_item_plant_portarit" />
+
+            <ImageView
+                android:id="@+id/detail_image"
+                app:layout_constraintTop_toBottomOf="@+id/plant_list"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/plant_detail_app_bar_height"
+                android:contentDescription="@string/plant_detail_image_content_description"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:imageFromUrl="@{viewModel.plant.imageUrl}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
 </layout>
